@@ -6,10 +6,10 @@ const config = {
 	retries: 0,
 
 	/* Maximum time one test can run for. */
-	timeout: 120 * 1000,
+	timeout: 30 * 1000,
 	expect: {
 
-		timeout: 50000
+		timeout: 20000
 	},
 
 	reporter: 'html',
