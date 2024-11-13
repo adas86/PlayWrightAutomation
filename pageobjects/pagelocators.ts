@@ -30,3 +30,7 @@ export const signupLocators = {
 	signupForm: 'div.signup-form',
 	errorMessageLocator: 'p:has-text("Email Address already exist!")'
 };
+
+// locator example, both are correct and equivalent
+// page.locator("span:has-text('Search')");
+// page.locator('span', { hasText: 'Search' });
