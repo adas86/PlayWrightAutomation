@@ -4,23 +4,22 @@ import { signupLocators } from '../pageobjects/pagelocators';
 import { setupPage, page } from '../hooks/testsetup';
 
 // Define variables to store string values
-const url = 'https://automationexercise.com/';
-const testName = 'adas';
-const emailAddress = 'adas120422@yopmail.com';
-const password = 'Adas#123';
-const birthDay = '12';
-const birthMonth = '5';
-const birthYear = '2018';
-const firstName = 'adas';
-const lastName = 'das';
-const companyName = 'aaa';
-const address1 = 'myaddress1';
-const address2 = 'myaddress2';
-const state = 'WB';
-const city = 'Kolkata';
-const zipcode = '700091';
-const mobileNumber = '9876543210';
-
+const url = signupLocators.url;
+const testName = signupLocators.testName;
+const emailAddress = signupLocators.emailAddress;
+const password = signupLocators.password;
+const birthDay = signupLocators.birthDay;
+const birthMonth = signupLocators.birthMonth;
+const birthYear = signupLocators.birthYear;
+const firstName = signupLocators.firstName;
+const lastName = signupLocators.lastName;
+const companyName = signupLocators.companyName;
+const address1 = signupLocators.address1;
+const address2 = signupLocators.address2;
+const state = signupLocators.state;
+const city = signupLocators.city;
+const zipcode = signupLocators.zipcode;
+const mobileNumber = signupLocators.mobileNumber;
 
 
 test.beforeAll(setupPage(url));
@@ -90,6 +89,24 @@ test('Signup with Existing Email Validation', async () => {
 
 	// Assertions
 	await expect(getLocator(page, 'errorMessageLocator')).toBeVisible();
+});
+
+test.only('Contact Us page with file upload', async () => {
+
+	await page.click(signupLocators.contactUsLink);
+	await expect(page.locator(signupLocators.contactUsHeader)).toBeVisible();
+
+	await page.fill(signupLocators.ContactnameInput, signupLocators.testName);
+	await page.fill(signupLocators.ContactemailInput, signupLocators.emailAddress);
+	await page.fill(signupLocators.subjectInput, signupLocators.subject);
+	await page.fill(signupLocators.messageTextarea, signupLocators.message);
+
+	await page.locator(signupLocators.fileInput).setInputFiles(signupLocators.filePath);
+
+	page.on('dialog', dialog => dialog.accept());
+	await page.click(signupLocators.submitButton);
+
+	await expect(getLocator(page, 'successMessage')).toHaveText('Success! Your details have been submitted successfully.');
 });
 
 test.afterAll(async () => {

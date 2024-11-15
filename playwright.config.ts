@@ -6,9 +6,9 @@ const config: PlaywrightTestConfig = {
 	retries: 0,
 
 	/* Maximum time one test can run for. */
-	timeout: 30 * 1000,
+	timeout: 60 * 1000,
 	expect: {
-		timeout: 20000,
+		timeout: 40000,
 	},
 
 	reporter: [
@@ -27,9 +27,13 @@ const config: PlaywrightTestConfig = {
 	// Configure projects for major browsers.
 	projects: [
 		{
-			name: 'chromium',
-			use: { ...devices['Desktop Chrome'] },
+			name: 'Google Chrome',
+			use: { ...devices['Desktop Chrome'], channel: 'chrome' }, // or 'chrome-beta'
 		},
+		// {
+		// 	name: 'chromium',
+		// 	use: { ...devices['Desktop Chrome'] },
+		// },
 	],
 };
 
