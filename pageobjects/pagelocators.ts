@@ -1,5 +1,6 @@
-// signupLocators.ts
-export const signupLocators = {
+// https://automationexercise.com page locators
+
+export const myLocators = {
 
 	//registration form selector
 	signupLink: 'a:has-text("Signup / Login")',
@@ -65,6 +66,9 @@ export const signupLocators = {
 	subject: 'test sub',
 	message: 'test message',
 	filePath: 'utils\\download.xlsx',
+
+	// Product locator
+	productLinkAll: '.product-image-wrapper',
 
 
 };

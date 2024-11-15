@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
-import { signupLocators } from '../pageobjects/pagelocators';
+import { myLocators } from '../pageobjects/pagelocators';
 
-export function getLocator(page: Page, locatorKey: keyof typeof signupLocators) {
-	return page.locator(signupLocators[locatorKey]);
+export function getLocator(page: Page, locatorKey: keyof typeof myLocators) {
+	return page.locator(myLocators[locatorKey]);
 }
