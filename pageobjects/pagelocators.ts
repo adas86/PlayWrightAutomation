@@ -68,7 +68,9 @@ export const myLocators = {
 	filePath: 'utils\\download.xlsx',
 
 	// Product locator
+	productsPage: 'a[href="/products"]',
 	productLinkAll: '.product-image-wrapper',
+	brandCount: '.brands-name >> .pull-right',
 
 
 };
