@@ -102,16 +102,26 @@ test('Contact Us page with file upload', async () => {
 	await page.fill(myLocators.messageTextarea, myLocators.message);
 
 	await page.locator(myLocators.fileInput).setInputFiles(myLocators.filePath);
+	await page.waitForTimeout(3000);
 
 	page.on('dialog', dialog => dialog.accept());
-	await page.click(myLocators.submitButton);
+	await page.waitForTimeout(3000);
+
+	await page.click('input[value="Submit"]');
+	await page.waitForTimeout(3000);
 
 	await expect(getLocator(page, 'successMessage')).toHaveText('Success! Your details have been submitted successfully.');
 });
 
-test('Verify Product count', async () => {
-	await page.click(myLocators.productLinkAll);
+test.only('Verify Product count', async () => {
+	await page.click(myLocators.productsPage);
 
+	let products = await page.locator(myLocators.productLinkAll).count();
+
+	const brandCounts = await page.locator(myLocators.brandCount).allTextContents();
+	const brandcount: number = brandCounts.reduce((sum: number, b: string): number => sum + parseInt(b.replace("(", '').replace(')', '')), 0);
+
+	expect(products).toBe(brandcount);
 });
 
 test.afterAll(async () => {
