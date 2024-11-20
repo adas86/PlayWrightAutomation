@@ -13,3 +13,5 @@ const filePath = path.join(__dirname, '../utils/file.txt');
 // 	console.log(data);
 // });
 console.log(`this the location of current file execution "${filePath}"`);
+console.log(`this the location of current file execution "${__filename}"`);
+console.log(`this the location of current file execution "${__dirname}"`);
