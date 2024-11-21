@@ -1,93 +1,48 @@
-import { defineConfig, devices } from '@playwright/test';
+// @ts-check
+import { devices, PlaywrightTestConfig } from '@playwright/test';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
-export default defineConfig({
+const config: PlaywrightTestConfig = {
 	testDir: './tests',
-	/* Run tests in files in parallel */
-	fullyParallel: false,
-	/* Fail the build on CI if you accidentally left test.only in the source code. */
-	forbidOnly: !!process.env.CI,
-	/* Retry on CI only */
-	retries: process.env.CI ? 2 : 0,
-	/* Opt out of parallel tests on CI. */
-	workers: process.env.CI ? 1 : undefined,
-
-	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	reporter: [
-		['list', { printSteps: true }],
-		['html', { open: 'never' }]
-	],
+	retries: 0,
 
 	/* Maximum time one test can run for. */
 	timeout: 60 * 1000,
 	expect: {
-		timeout: 40000,
+		timeout: 50000,
 	},
 
+	reporter: [
+		['list', { printSteps: true }],
+		['html', { open: 'never' }],
+		['playwright-msteams-reporter',
+			{
+				webhookUrl: "https://ltimindtree.webhook.office.com/webhookb2/1ece7b74-375c-48da-8126-0fdac9faaa6f@ff355289-721e-4dd7-a663-afec62ab9d54/IncomingWebhook/c83612eb66ea4a39af81a0b93e965128/816fd261-f34c-4f88-a956-6eefbaea69ba/V2Oxu47MDvCulXLYCZtf_CzNijz1_4RjpUN0q2QFpEWu81",
+				webhookType: "msteams",
+				mentionOnFailure: "Arunava Das<arunava.10749187@ltimindtree.com>",
+				mentionOnFailureText: "{mentions} THIS MESSAGE IS BEING PUSHED THROUGH WEBHOOK IN REALTIME AND WILL ONLY SHOW WHEN THERE ARE FAILED TESTS!"
+			}
+		]
+	],
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
-		/* Base URL to use in actions like `await page.goto('/')`. */
-		// baseURL: 'http://127.0.0.1:3000',
 		baseURL: 'https://magento.softwaretestingboard.com/',
+		// browserName: 'chromium',
 		headless: false,
 		screenshot: 'only-on-failure',
-
-		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-		trace: 'retain-on-failure',
+		trace: 'on', // off, on
 	},
 
-	/* Configure projects for major browsers */
+	// Configure projects for major browsers.
 	projects: [
-		// {
-		//   name: 'chromium',
-		//   use: { ...devices['Desktop Chrome'] },
-		// },
-
-		// {
-		//   name: 'firefox',
-		//   use: { ...devices['Desktop Firefox'] },
-		// },
-
-		// {
-		//   name: 'webkit',
-		//   use: { ...devices['Desktop Safari'] },
-		// },
-
-		/* Test against mobile viewports. */
-		// {
-		//   name: 'Mobile Chrome',
-		//   use: { ...devices['Pixel 5'] },
-		// },
-		// {
-		//   name: 'Mobile Safari',
-		//   use: { ...devices['iPhone 12'] },
-		// },
-
-		/* Test against branded browsers. */
-		// {
-		//   name: 'Microsoft Edge',
-		//   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-		// },
 		{
-			name: 'Google Chrome',
-			use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+			name: 'chromium',
+			use: { ...devices['Desktop Chrome'] },
 		},
+		// {
+		// 	name: 'Google Chrome',
+		// 	use: { channel: 'chrome' },
+		// },
 	],
+};
 
-	/* Run your local dev server before starting the tests */
-	// webServer: {
-	//   command: 'npm run start',
-	//   url: 'http://127.0.0.1:3000',
-	//   reuseExistingServer: !process.env.CI,
-	// },
-});
+export default config;
