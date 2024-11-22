@@ -16,7 +16,7 @@ export class MyData {
 	 * @returns {Promise<string>} The value of the cell as a string.
 	 */
 	public async readCellValue(cellNumber: string): Promise<string> {
-		//const workbook = new ExcelJS.Workbook();
+
 		try {
 			const filePath = path.join(__dirname, '../utils/exceldata.xlsx');
 			await this.workbook.xlsx.readFile(filePath); // Ensure this path is correct
